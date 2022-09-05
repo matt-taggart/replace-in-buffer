@@ -4,11 +4,13 @@ endif
 let g:loaded_replace_in_buffer = 1
 
 function! s:ReplaceInBuffer()
-  let wordUnderCursor = expand("<cword>")
+  let l:wordUnderCursor = expand("<cword>")
+  normal gg0
   call inputsave()
-  let replacementText = input("Enter replacement text: ")
+  let l:replacementText = input("Replace '" . l:wordUnderCursor . "' with: ")
   call inputrestore()
-  execute ":%s/" . wordUnderCursor . "/" . replacementText . "\/g"
+  execute "%s/" . l:wordUnderCursor . "/" . l:replacementText . "/g"
 endfunction
 
-:command -nargs=0 ReplaceInBuffer :call s:ReplaceInBuffer()
+:command ReplaceInBuffer :call s:ReplaceInBuffer()
+
